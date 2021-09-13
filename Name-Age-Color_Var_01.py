@@ -1,4 +1,4 @@
-colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink"]
+colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown"]
 
 while True:
     name = input("What is your name?\n")
