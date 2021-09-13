@@ -11,7 +11,7 @@ while True:
     try:
         age = int(input("How old are you?\n"))
         if 1 <= age <= 118:
-            print("Done")
+            break
         else:
             print("I don't think you could be that old...")
     except ValueError:
