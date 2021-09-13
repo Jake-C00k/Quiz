@@ -11,9 +11,12 @@ while True:
     try:
         age = int(input("How old are you?\n"))
         if 1 <= age <= 118:
-            break
+            print("Done")
+        else:
+            print("I don't think you could be that old...")
     except ValueError:
         print("I don’t recognize that number sorry...")
+
 while True:
     fav_color = input("What is your favourite color?\n")
     if fav_color in colors:
