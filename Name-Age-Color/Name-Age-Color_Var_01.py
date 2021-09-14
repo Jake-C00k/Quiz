@@ -20,6 +20,6 @@ while True:
 while True:
     fav_color = input("What is your favourite color?\n").strip().lower()
     if fav_color in colors:
-        break
+        print("Done")
     else:
         print("I’m sorry, I don’t think I’ve heard of that colour, could you try another one?")
