@@ -19,7 +19,7 @@ def yes_no(question):
 def name_age_color():
     while True:
         while True:
-            name = input("What is your name?\n")
+            name = input("What is your name?\n").capitalize()
             if str.isalpha(name) == True:
                 print("That's a nice name!")
                 break
