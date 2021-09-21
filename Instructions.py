@@ -6,7 +6,7 @@ def instructions():
 
    input("If the question is a short answer, please follow the on-screen instructions.")
 
-   input("If you get 2 questions in a row wrong, you will lose the quiz.")
+   input("If you get 1 question wrong, you will lose the quiz.")
 
    print("However, if you get all the way to the end, you win!")
 
