@@ -22,9 +22,9 @@ def multi_question(list, score):
         except ValueError:
             print("I’m sorry, I didn’t recognize that input. Could you try again, remembering to only use numbers?")
 
-#while 0 <= score < 2:
-multi_question(q1, score)
-if multi_question.correct == True:
-    score = 0
-elif multi_question.correct == False:
-        score += 1
+while 0 <= score < 2:
+    multi_question(q1, score)
+    if multi_question.correct == True:
+        score = 0
+    elif multi_question.correct == False:
+            score += 1
