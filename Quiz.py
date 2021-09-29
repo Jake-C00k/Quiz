@@ -1,9 +1,11 @@
 from random import randint
+from Title_Screen import display
+
+
 yes = ["y", "yes", "yep", "affirmative", "yea"]
 no = ["n", "no", "nope", "negative", "nah"]
 finish = False
 score = 0
-
 #Special codes
 #purple
 p = '\033[95m'
@@ -27,6 +29,8 @@ uf = '\033[4m'
 ef = '\033[0m'
 
 confetti = b + "🎉" + r + "--"
+logo = p + "QUIZ FIESTA" + b
+
 
 def question_gen():
     q = randint(1, 3)
@@ -84,7 +88,6 @@ def instructions():
    input("If the question is multi-choice, please type the corresponding number to the answer you wish to give.")
    input("If the question is a short answer, please follow the on-screen instructions.")
    input("If you get 1 question wrong, you will lose the quiz.")
-
    print("However, if you get all the way to the end, you win!\n")
 
 
@@ -92,32 +95,25 @@ def instructions():
 #Main Sequence
 
 #Title Screen
-print(r +"-------------------------------------\n"
-      "-----------" + b + "Q" + r +"---"+ b + "U" + r + "---"+ b + "I"+ r + "---"+ b + "Z" + r +
-      "-------------\n"
-      "-------" + b + "F" + r + "---" + b + "I" + r + "---" + b + "E" + r + "---" + b + "S" + r +
-      "---" + b + "T" + r + "---" + b + "A" + r + "---------")
+display()
 print("-{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}".format(confetti))
 input("       PRESS ENTER TO BEGIN            \n")
 
 #Asking the user if they have played before and giving instructions if they haven't
-yes_no(b + "Have you played" + p + " QUIZ FIESTA " + b + "before?\n")
-if yes_no.answer == True:
-    print("Then let the" + p + " QUIZ FIESTA " + b + "begin!\n")
-elif yes_no.answer == False:
-    while yes_no.answer == False:
-        instructions()
-        yes_no("Did you catch all that?\n")
-    print("Then let the" + p + " QUIZ FIESTA " + b + "begin!\n")
+yes_no(b + "Have you played {} before?\n".format(logo))
+while not yes_no.answer:
+    instructions()
+    yes_no("Did you catch all that?\n")
+print("Then let the {} begin!\n".format(logo))
 
 #Playing the first four rounds
-while finish != True:
+while not finish:
     for i in range(4):
         question_gen()
         multi_question(question_gen.question, )
-        if multi_question.correct == True:
+        if multi_question.correct:
             finish = False
             score += 1
-        elif multi_question.correct == False:
+        elif not multi_question.correct:
             finish = True
 
