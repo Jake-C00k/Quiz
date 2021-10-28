@@ -1,30 +1,9 @@
+# The random number generator
 from random import randint
+# The title screen
 from Title_Screen import display
 # Special color codes and text changing effects.
-# purple
-p = '\033[95m'
-# cyan
-c = '\033[96m'
-# darkcyan
-dc = '\033[36m'
-# blue
-b = '\033[94m'
-# green
-g = '\033[92m'
-# yellow
-y = '\033[93m'
-# red
-r = '\033[91m'
-# bold
-bf = '\033[1m'
-# underline
-uf = '\033[4m'
-# end
-ef = '\033[0m'
-
-confetti = b + "🎉" + r + "--"
-logo = p + "QUIZ FIESTA" + b
-star = r + "*" + y + "*" + g + "*" + b
+from col_codes import  p, c, dc, b, g, y, r, bf, uf, ef, confetti, logo, star
 
 # Other variables
 yes = ["y", "yes", "yep", "affirmative", "yea"]
@@ -34,8 +13,9 @@ questions = [b + "\nWhich number is highest?\n" + r + " 1: fifty-three\n 2: four
              b + "\nWhat is actually electricity?\n" + y + " 1: A flow of Air\n 2: A flow of water\n 3: A flow of electrons\n",
              b + "\nWhat is the capital of Iceland?\n" + c + " 1: Seydisfjordur\n 2: Reykjavík \n 3: Akureyri\n",
              b + "\nHow many breeds of elephant are there?\n" + dc + " 1: 7\n 2: 5\n 3: 3\n",
+             b + "\nHow many permanent teeth does a dog have?\n" + p + "1: 14\n 2: 42\n 3: 24\n"
              ]
-answers = [1, 1, 3, 2, 3]
+answers = [1, 1, 3, 2, 3, 2]
 used = []
 finish = False
 score = 0
@@ -46,6 +26,7 @@ l3 = ["yellow", "purple"]
 l4 = ["brown", "pink"]
 color_spec = ["What color is Skobeloff most similar to?\n", "1. Blue\n", "2. Red", "3. Yellow\n", 1]
 colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown"]
+
 
 # This function asks the user yes-no questions
 def yes_no(question):
@@ -108,7 +89,7 @@ def user_info(question, n):
 def question_gen():
     while True:
         # Generates a random question from the list
-        rand = randint(0, 3)
+        rand = randint(0, 4)
         q = questions[rand]
         a = answers[rand]
         # If the question is in the 'used' list, the program carries on until it finds one that isn't
@@ -150,32 +131,28 @@ def endgame():
     print("Sorry, {}, you lost the Quiz Fiesta".format(user_info.name))
     print("Your score was {}".format(score))
 
-# Asks the user a special question
+# Asks the user a special question regarding colors
 def spec_color():
     while True:
         if user_info.col in l1 or user_info.col in l2 or user_info.col in l3:
-            color_response = input("What colour is complimentary to the color you chose?").strip().lower()
+            color_response = input(r + "What colour is complimentary to the color you chose?\n").strip().lower()
             if str.isalpha(color_response) == True:
                 if color_response != user_info.col:
                     if color_response in l1 and user_info.col in l1:
                         print("Correct, {} was the right answer".format(color_response))
-                        col = True
                         break
                     elif color_response in l2 and user_info.col in l2:
                         print("Correct, {} was the right answer".format(color_response))
-                        col = True
                         break
                     elif color_response in l3 and user_info.col in l3:
                         print("Correct, {} was the right answer".format(color_response))
-                        col = True
                         break
                     elif color_response in l4 and user_info.col in l4:
                         print("Correct, {} was the right answer".format(color_response))
-                        col = True
                         break
                     else:
                         print("Incorrect, {} was unfortunately the wrong response. Better luck next time".format(color_response))
-                        col = False
+                        endgame()
                         break
                 else:
                     print("That was your favourite color, so what is the complimentary color to that?")
@@ -184,6 +161,25 @@ def spec_color():
         else:
             multi_question(color_spec)
             break
+
+# Asks the user a special question regarding numbers
+def spec_num():
+    ans = (user_info.age * 3) + 14
+
+    while True:
+        try:
+            num_response = int(input("What is ({} x 3) + 14?\n".format(user_info.age)))
+            if num_response == ans:
+                print("Correct, {} was the right answer".format(num_response))
+                break
+            elif num_response == ans - 1 or num_response == ans + 1:
+                print("So close, {} was unfortunately the wrong response. We’ll give you another shot".format(num_response))
+            else:
+                print("Incorrect, {} was unfortunately the wrong response. Better luck next time".format(num_response))
+                endgame()
+                break
+        except ValueError:
+            print("I’m sorry, I didn’t recognize that input. Could you try again, remembering to only use numbers?")
 
 
 # *****************************************************Main Sequence*****************************************************
@@ -207,7 +203,7 @@ user_info("Last question: What's your favorite color?\n", "list")
 input("All set now...")
 print("Let the {} begin!".format(logo))
 
-
+# Main Question asking sequence
 while not finish:
     for i in range(2):
         for i in range(4):
@@ -221,5 +217,10 @@ while not finish:
                 endgame()
                 exit()
 
-        print("{0}{0}B{0}O{0}N{0}U{0}S{0}{0}Q{0}U{0}E{0}S{0}T{0}I{0}O{0}N{0}{0}".format(star))
-        print("Wow, you're good to have made it this far!")
+        print("\n{0}{0}B{0}O{0}N{0}U{0}S{0}{0}Q{0}U{0}E{0}S{0}T{0}I{0}O{0}N{0}{0}\n".format(star))
+        print("Wow, you're good to have made it this far!\n")
+        if spec_color:
+            spec_color()
+            spec_color = True
+        else:
+            spec_num()
