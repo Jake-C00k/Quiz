@@ -3,7 +3,7 @@ from random import randint
 # The title screen
 from Title_Screen import display
 # Special color codes and text changing effects.
-from col_codes import  p, c, dc, b, g, y, r, bf, uf, ef, confetti, logo, star
+from col_codes import p, c, dc, b, g, y, r, confetti, logo, star
 
 # Other variables
 yes = ["y", "yes", "yep", "affirmative", "yea"]
@@ -46,6 +46,7 @@ def yes_no(question):
         print("Please enter Yes or No\n")
         yes_no(question)
 
+
 # This function displays the instructions for the user if they haven't played before
 def instructions():
     # Displaying instructions for the user
@@ -56,12 +57,13 @@ def instructions():
     input("If you get 1 question wrong, you will lose the quiz.")
     print("However, if you get all the way to the end, you win!\n")
 
-#This function asks a short answer question, with the parameters changing with the 'n' input e.g str, int, list
+
+# This function asks a short answer question, with the parameters changing with the 'n' input e.g str, int, list
 def user_info(question, n):
     while n == "str" or n == "list":
         user_info.response = input(question).lower().strip()
         if n == "str":
-            if str.isalpha(user_info.response) == True:
+            if str.isalpha(user_info.response):
                 print("That's a nice name!")
                 user_info.name = user_info.response
                 break
@@ -86,6 +88,7 @@ def user_info(question, n):
         except ValueError:
             print("I don’t recognize that number sorry...")
 
+
 # This function generates a random question from the list 'Questions'
 def question_gen():
     while True:
@@ -102,6 +105,7 @@ def question_gen():
             question_gen.answer = answers[rand]
             used.append(questions[rand])
             break
+
 
 # This function takes the random question and answer, asks it and evaluates the response
 def multi_question(question, ans):
@@ -127,18 +131,20 @@ def multi_question(question, ans):
             # If the user enters something other than a number
             print("I’m sorry, I didn't recognize that input. Could you try again, remembering to only use numbers?")
 
-# This function triggers the sequence of events at the end of the quiz
+
+# This function triggers the sequence of events at the end of the quiz in a losing scenario
 def endgame():
     print("Sorry, {}, you lost the Quiz Fiesta".format(user_info.name))
     print("Your score was {}".format(score))
     exit()
+
 
 # Asks the user a special question regarding colors
 def spec_color():
     while True:
         if user_info.col in l1 or user_info.col in l2 or user_info.col in l3:
             color_response = input(r + "What colour is complimentary to the color you chose?\n").strip().lower()
-            if str.isalpha(color_response) == True:
+            if str.isalpha(color_response):
                 if color_response != user_info.col:
                     if color_response in l1 and user_info.col in l1:
                         print("Correct, {} was the right answer".format(color_response))
@@ -153,16 +159,19 @@ def spec_color():
                         print("Correct, {} was the right answer".format(color_response))
                         break
                     else:
-                        print("Incorrect, {} was unfortunately the wrong response. Better luck next time".format(color_response))
+                        print("Incorrect, {} was unfortunately the wrong response. Better luck next time".format(
+                            color_response))
                         endgame()
                         break
                 else:
                     print("That was your favourite color, so what is the complimentary color to that?")
             else:
-                print("I’m sorry, I didn’t recognize that input. Could you try again, remembering to type the complimentary colour to your favourite?")
+                print(
+                    "I’m sorry, I didn’t recognize that input. Could you try again, remembering to type the complimentary colour to your favourite?")
         else:
             multi_question("What color is Skobeloff most similar to?\n 1. Blue\n 2. Red\n 3. Yellow\n", 1)
             break
+
 
 # Asks the user a special question regarding numbers
 def spec_num():
@@ -175,7 +184,8 @@ def spec_num():
                 print("Correct, {} was the right answer".format(num_response))
                 break
             elif num_response == ans - 1 or num_response == ans + 1:
-                print("So close, {} was unfortunately the wrong response. We’ll give you another shot".format(num_response))
+                print("So close, {} was unfortunately the wrong response. We’ll give you another shot".format(
+                    num_response))
             else:
                 print("Incorrect, {} was unfortunately the wrong response. Better luck next time".format(num_response))
                 endgame()
@@ -190,7 +200,6 @@ def spec_num():
 display()
 print("-{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}".format(confetti))
 input("       PRESS ENTER TO BEGIN            \n")
-
 
 # Asking the user if they have played before and giving instructions if they haven't
 yes_no(b + "Have you played {} before?\n".format(logo))
@@ -216,8 +225,7 @@ while not finish:
                 score += 1
             elif not multi_question.correct:
                 endgame()
-
-
+        # Runs the two special questions
         print("\n{0}{0}B{0}O{0}N{0}U{0}S{0}{0}Q{0}U{0}E{0}S{0}T{0}I{0}O{0}N{0}{0}\n".format(star))
         print("Wow, you're good to have made it this far!\n")
         if spec_color:
@@ -226,5 +234,6 @@ while not finish:
         else:
             spec_num()
             finish = True
+# The end screen of the game
 print("Wow, you got a perfect score on {}!".format(logo))
 print("\n{0}{0}C{0}O{0}N{0}G{0}R{0}A{0}T{0}U{0}L{0}A{0}T{0}I{0}O{0}N{0}S{0}{0}\n".format(star))
