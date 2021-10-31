@@ -13,9 +13,11 @@ questions = [b + "\nWhich number is highest?\n" + r + " 1: fifty-three\n 2: four
              b + "\nWhat is actually electricity?\n" + y + " 1: A flow of Air\n 2: A flow of water\n 3: A flow of electrons\n",
              b + "\nWhat is the capital of Iceland?\n" + c + " 1: Seydisfjordur\n 2: Reykjavík \n 3: Akureyri\n",
              b + "\nHow many breeds of elephant are there?\n" + dc + " 1: 7\n 2: 5\n 3: 3\n",
-             b + "\nHow many permanent teeth does a dog have?\n" + p + "1: 14\n 2: 42\n 3: 24\n"
+             b + "\nHow many permanent teeth does a dog have?\n" + p + " 1: 14\n 2: 42\n 3: 24\n",
+             b + "\nWhat language is spoken in Brazil?\n" + r + " 1: Brazilian\n 2: Portuguese\n 3: Spanish\n",
+             b + "\nGlossectomy is the removal of all of or part of which body part?\n" + y + " 1: Tongue\n 2: Liver\n 3: Kidney\n"
              ]
-answers = [1, 1, 3, 2, 3, 2]
+answers = [1, 1, 3, 2, 3, 2, 2, 1]
 used = []
 finish = False
 score = 0
@@ -24,7 +26,6 @@ l1 = ["red", "green"]
 l2 = ["blue", "orange"]
 l3 = ["yellow", "purple"]
 l4 = ["brown", "pink"]
-color_spec = ["What color is Skobeloff most similar to?\n", "1. Blue\n", "2. Red", "3. Yellow\n", 1]
 colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown"]
 
 
@@ -89,7 +90,7 @@ def user_info(question, n):
 def question_gen():
     while True:
         # Generates a random question from the list
-        rand = randint(0, 4)
+        rand = randint(0, 7)
         q = questions[rand]
         a = answers[rand]
         # If the question is in the 'used' list, the program carries on until it finds one that isn't
@@ -130,6 +131,7 @@ def multi_question(question, ans):
 def endgame():
     print("Sorry, {}, you lost the Quiz Fiesta".format(user_info.name))
     print("Your score was {}".format(score))
+    exit()
 
 # Asks the user a special question regarding colors
 def spec_color():
@@ -159,7 +161,7 @@ def spec_color():
             else:
                 print("I’m sorry, I didn’t recognize that input. Could you try again, remembering to type the complimentary colour to your favourite?")
         else:
-            multi_question(color_spec)
+            multi_question("What color is Skobeloff most similar to?\n 1. Blue\n 2. Red\n 3. Yellow\n", 1)
             break
 
 # Asks the user a special question regarding numbers
@@ -213,14 +215,16 @@ while not finish:
                 finish = False
                 score += 1
             elif not multi_question.correct:
-                finish = True
                 endgame()
-                exit()
+
 
         print("\n{0}{0}B{0}O{0}N{0}U{0}S{0}{0}Q{0}U{0}E{0}S{0}T{0}I{0}O{0}N{0}{0}\n".format(star))
         print("Wow, you're good to have made it this far!\n")
         if spec_color:
             spec_color()
-            spec_color = True
+            spec_color = False
         else:
             spec_num()
+            finish = True
+print("Wow, you got a perfect score on {}!".format(logo))
+print("\n{0}{0}C{0}O{0}N{0}G{0}R{0}A{0}T{0}U{0}L{0}A{0}T{0}I{0}O{0}N{0}S{0}{0}\n".format(star))
